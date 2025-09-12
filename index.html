@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multiplication PWA</title>
+    <meta name="theme-color" content="#4caf50">
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="icon.png" type="image/png">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Multiplication Practice</h1>
+            <p>A simple offline multiplication tool</p>
+        </header>
+        
+        <main>
+            <div class="problem-section">
+                <div class="problem-display" id="problem">
+                    7 × 8 = ?
+                </div>
+                <div class="result-display" id="result">
+                    Enter your answer
+                </div>
+            </div>
+            
+            <div class="input-section">
+                <input type="number" id="answer" placeholder="Enter answer">
+                <button id="check-btn">Check Answer</button>
+                <button id="new-problem">New Problem</button>
+            </div>
+            
+            <div class="score-section">
+                <p>Score: <span id="score">0</span></p>
+                <p>Problems attempted: <span id="attempts">0</span></p>
+            </div>
+        </main>
+        
+        <footer>
+            <p>This PWA works offline after installation</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Register service worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('service-worker.js')
+                    .then((registration) => {
+                        console.log('SW registered: ', registration);
+                    })
+                    .catch((registrationError) => {
+                        console.log('SW registration failed: ', registrationError);
+                    });
+            });
+        }
+        
+        // Prevent default install prompt
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            console.log('PWA installation available');
+        });
+    </script>
+</body>
+</html>
