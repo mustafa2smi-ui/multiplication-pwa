@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple Calculation</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    input, button {
+      padding: 5px;
+      margin: 5px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+    th, td {
+      border: 1px solid #aaa;
+      padding: 8px;
+      text-align: center;
+    }
+    th {
+      background: #f2f2f2;
+    }
+    tfoot td {
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h2>Simple Calculation Tool</h2>
+  
+  <label>Qty: <input type="number" id="qty" min="1"></label>
+  <label>Rate: <input type="number" id="rate" min="1"></label>
+  <button onclick="addItem()">Add</button>
+
+  <table id="calcTable">
+    <thead>
+      <tr>
+        <th>Qty</th>
+        <th>Rate</th>
+        <th>Amount</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+    <tfoot>
+      <tr>
+        <td colspan="2">Total</td>
+        <td id="grandTotal">0</td>
+      </tr>
+    </tfoot>
+  </table>
+
+  <script>
+    let total = 0;
+
+    function addItem() {
+      const qty = parseFloat(document.getElementById("qty").value) || 0;
+      const rate = parseFloat(document.getElementById("rate").value) || 0;
+      const amount = qty * rate;
+
+      if (qty <= 0 || rate <= 0) {
+        alert("Please enter valid Qty and Rate!");
+        return;
+      }
+
+      const tableBody = document.querySelector("#calcTable tbody");
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td>${qty}</td>
+        <td>${rate}</td>
+        <td>${amount}</td>
+      `;
+      tableBody.appendChild(row);
+
+      total += amount;
+      document.getElementById("grandTotal").textContent = total;
+
+      // Clear input fields
+      document.getElementById("qty").value = "";
+      document.getElementById("rate").value = "";
+    }
+  </script>
+</body>
+</html>
