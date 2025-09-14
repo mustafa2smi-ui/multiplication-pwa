@@ -1,6 +1,7 @@
 const CACHE_NAME = 'multiplication-pwa-v1';
 const urlsToCache = [
   '/',
+  '/about.html',
   '/index.html',
   '/style.css',
   '/script.js',
