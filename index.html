@@ -47,7 +47,7 @@
             <a href="about.html">About us</a>
         </footer>
     </div>
-
+<!--
     <script src="script.js"></script>
     <script>
         // Register service worker
@@ -69,5 +69,27 @@
             console.log('PWA installation available');
         });
     </script>
+    -->
+    <script>
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            // Register service worker with the root scope
+            navigator.serviceWorker.register('/service-worker.js', { scope: '/' })
+                .then((registration) => {
+                    console.log('SW registered with scope: ', registration.scope);
+                })
+                .catch((registrationError) => {
+                    console.log('SW registration failed: ', registrationError);
+                });
+        });
+    }
+
+    // Prevent default install prompt
+    window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        console.log('PWA installation available');
+    });
+</script>
+
 </body>
 </html>
